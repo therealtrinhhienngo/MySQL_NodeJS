@@ -16,14 +16,13 @@ router.get('/get', function (req, res, next) {
 });
 
 router.post('/add', (req, res) => {
-    const {id, name, role} = req.body;
+    const { id, name, role } = req.body;
     const addQuery = `INSERT INTO employee (id, name, role) VALUES('${id}','${name}', '${role}')`;
-    
+
     try {
         mysqlConnection.query(addQuery, function (err, result, fields) {
             if (err) throw err;
-            res.send(result)
-            console.log('Add Complete!');
+            res.status(200).send("Add Complete!");
         });
     } catch (error) {
         console.log('Error: ' + error);
@@ -31,7 +30,7 @@ router.post('/add', (req, res) => {
 })
 
 router.post('/update', async (req, res) => {
-    const {id, name, role} = req.body;
+    const { id, name, role } = req.body;
     const updateQuery = `
         UPDATE employee
         SET name = '${name}', role = '${role}'
@@ -50,7 +49,7 @@ router.post('/update', async (req, res) => {
 })
 
 router.delete('/delete', async (req, res) => {
-    const {id} = req.body;
+    const { id } = req.body;
     const deleteQuery = `DELETE FROM employee WHERE id='${id}';`
 
     try {
